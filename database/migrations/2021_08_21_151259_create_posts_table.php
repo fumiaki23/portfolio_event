@@ -21,16 +21,12 @@ class CreatePostsTable extends Migration
                 $table->integer('applicants');
                 $table->text('body');
                 $table->string('name');
+                $table->text('content');
                 $table->timestamps();
             });
         }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('posts');
