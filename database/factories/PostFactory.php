@@ -10,7 +10,8 @@ $factory->define(Post::class, function (Faker $faker) {
         'title' => $faker->word,
         'place' => $faker->word,
         'applicants' => $faker->randomDigitNotNull,
-        'body' => $faker->realText,
-        'name' =>$faker->userName
+        'body' => $faker->text,
+        'name' =>$faker->userName,
+        'content' =>$faker->realText
     ];
 });
