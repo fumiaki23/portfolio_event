@@ -6,14 +6,14 @@
         <title>Posts</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="/css/app.css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <h1 class="title">
             {{ $post->title }}
         </h1>
         <div class="main">
-            <a href='a' class="place">{{ $post->place }}</a>
+            <p class="place">{{ $post->place }}</p>
             <a href='b' class= "applicants">{{ $post->applicants }}</a>            
             <div class="main__post">
                 <p>{{ $post->body }}</p>    

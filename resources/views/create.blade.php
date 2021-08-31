@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
         <title>Event</title>
     </head>
     <body>
@@ -24,9 +25,9 @@
                 <h2>概要</h2>
                 <textarea name="post[body]" placeholder="一覧ページに表示されます。"></textarea>
             </div>
+            <p>{{ $user['name'] }}</p>
             <div class="name">
-                <h2>ユーザーネーム</h2>
-                <input type="text" name="post[name]" placeholder="ああああ"/>
+                <input type="hidden" name="post[name]" value="{{ $user->name }}" />
             </div>
             <div class="content">
                 <h2>詳細情報</h2>
