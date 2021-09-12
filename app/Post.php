@@ -23,6 +23,7 @@ class Post extends Model
         'applicants',
         'body',
         'name',
+        'date',
         'content'
     ];
 }

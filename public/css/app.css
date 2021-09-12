@@ -44,6 +44,31 @@
   box-sizing: border-box;
 }
 
+/*追加css*/
+.paginate {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.bg-lightBlue {
+  background-color: #99CCFF;
+}
+
+.textarea-width-100 {
+  width: 100%;
+}
+
+.user-applicants {
+   white-space: nowrap;
+}
+
+.my-button {
+  position: absolute;
+  left: 90%;
+  transform: translate(-50%, 0);
+}
+/*ここまで*/
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

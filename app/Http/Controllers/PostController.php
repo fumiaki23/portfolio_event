@@ -18,11 +18,6 @@ class PostController extends Controller
     
     public function profile(Post $post, User $user)
     {   
-        $post = Post::find(1);
-        $user = User::all();
-        //dd($user);
-        $user = $post->user();
-        dd($user);
         return view('profile')->with(['post' => $post, 'user' => $user]);
     }
     
@@ -44,6 +39,11 @@ class PostController extends Controller
         $input['user_id'] = $user->id;
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
+    }
+    
+    public function recuruitment(Post $post, User $user)
+    {
+        return view('recruitment')->with(['post' => $post, 'user' => $user]);
     }
 
     public function edit(Post $post)
