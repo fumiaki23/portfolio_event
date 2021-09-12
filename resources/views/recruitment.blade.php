@@ -9,7 +9,18 @@
     </head>
     
     <body>
-        <h1>Profile</h1>
-        <p class="name">{{ $post->user->name }}</p>
+        <h1>Event</h1>
+        
+        </form>
+        <div class="posts">
+            @foreach ($posts as $post)
+                <div class="post">
+                    <h2><a href='/posts/{{ $post->id }}'>{{ $post->title }}</a></h2>
+                </div>
+            @endforeach
+        </div>
+        <div class="paginate">
+            {{ $posts->links() }}
+        </div>
     </body>
 </html>
