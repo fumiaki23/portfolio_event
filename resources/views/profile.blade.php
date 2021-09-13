@@ -10,6 +10,6 @@
     
     <body>
         <h1>Profile</h1>
-        <p class="name">{{ $post->name }}</p>
+        <p class="name">{{ $post->user->name }}</p>
     </body>
 </html>

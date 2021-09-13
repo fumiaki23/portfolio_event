@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     public function index(Post $post)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         return view('index', compact('user'))->with(['posts' => $post->getPaginateByLimit()]);
     }
     
-    public function profile(Post $post)
+    public function profile(Post $post,  User $user)
     {
-        return view('profile')->with(['post' => $post]);
+        return view('profile')->with(['post' => $post,  'user' => $user]);
     }
     
     public function show(Post $post)
@@ -26,14 +27,16 @@ class PostController extends Controller
     
     public function create()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         return view('create', compact('user'));
     }
     
     public function store(Request $request, Post $post)
-{
-    $input = $request['post'];
-    $post->fill($input)->save();
-    return redirect('/posts/' . $post->id);
-}
+    {
+        $user = Auth::user();
+        $input = $request['post'];
+        $input['user_id'] = $user->id;
+        $post->fill($input)->save();
+        return redirect('/posts/' . $post->id);
+    }
 }
