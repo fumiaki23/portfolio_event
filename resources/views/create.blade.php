@@ -8,7 +8,7 @@
     <body class="bg-lightBlue">
         <div class="col-8 offset-2 my-4 bg-light">
             <div class="container">
-                <h1>Event</h1>  
+                <h1><a href="/">Event</a></h1>  
                     <form action="/posts" method="POST">
                         @csrf
                         <div class="border rounded my-2">
@@ -17,19 +17,23 @@
                                     <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
                                 </div>
                                 <div class="h2 col-7">
-                                    <textarea class="textarea-width-100" name="post[title]" placeholder="タイトル" required></textarea>
+                                    <textarea class="width-100" name="post[title]" placeholder="タイトル" required></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3 offset-1 font-weight-bold">
                                     <span>募集人数:</span>
-                                    <input type="number" name="post[applicants]" placeholder=1 min=1 max=100 required/>
+                                    <input type="number" name="post[applicants]" placeholder=0 min=1 max=100 required/>
                                 </div>
                                 <div class="col-7 font-weight-bold">
                                     <div class="name">
-                                        <input class="user-applicants"type="text" name="post[name]" value="{{ $user->name }}" readonly />
+                                        <input class="user-applicants width-100"type="text" name="post[name]" value="{{ $user->name }}" readonly />
                                     </div>
                                 </div>
+                                <div class="col-11 offset-1">
+                                    <span class="font-weight-bold">開催日時:</span>
+                                    <input name="post[date]" type="date" id="today" style="width: 50%;">
+                                </div>                                
                                 <div class="col-11 offset-1 my-2">
                                     <div class="place">
                                         <span class="font-weight-bold">開催地:</span>
@@ -86,23 +90,19 @@
                                     </div>
                                 </div>
                                 <div class="col-10 offset-1">
-                                    <textarea class="textarea-width-100" name="post[body]" placeholder="一覧ページに表示されます。" required></textarea>
+                                    <textarea class="width-100" name="post[body]" placeholder="一覧ページに表示されます。" required></textarea>
                                 </div>
                                 <div class="col-6">
                                     <p class="deadline"></p>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <span class="font-weight-bold">開催日時:</span>
-                                    <input name="post[date]" type="date" id="today" style="width: 80%;">
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
-                            <textarea class="textarea-width-100" name="post[content]" placeholder="詳細ページに表示されます。" required></textarea>
+                            <textarea class="width-100" name="post[content]" placeholder="詳細ページに表示されます。" required></textarea>
                         </div>
                         <div class="text-right"><input type="submit" value="保存"/></div>
                     </form>
-                <div class="back text-right">[<a href="/home">back</a>]</div>
+                <div class="text-right">[<a href="/home">戻る</a>]</div>
             </div>
         </div>
         <script type="text/javascript">
@@ -111,6 +111,7 @@
                 var year = date.getFullYear()
                 var month = date.getMonth() + 1
                 var day = date.getDate()
+                var maximum = date.getFullYear() + 1
               
                 var toTwoDigits = function (num, digit) {
                   num += ''
@@ -123,9 +124,13 @@
                 var yyyy = toTwoDigits(year, 4)
                 var mm = toTwoDigits(month, 2)
                 var dd = toTwoDigits(day, 2)
+                var maxi = toTwoDigits(maximum, 4)
                 var ymd = yyyy + "-" + mm + "-" + dd;
+                var mmd = maxi + "-" + mm + "-" + dd;
                 
                 document.getElementById("today").value = ymd;
+                document.getElementById("today").min = ymd;
+                document.getElementById("today").max = mmd;
             }
         </script>
     </body>

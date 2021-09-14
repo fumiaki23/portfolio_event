@@ -7,7 +7,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class PostController extends Controller
 {
     public function index(Post $post)
@@ -16,9 +15,9 @@ class PostController extends Controller
         return view('index', compact('user'))->with(['posts' => $post->getPaginateByLimit()]);
     }
     
-    public function profile(Post $post, User $user)
-    {   
-        return view('profile')->with(['post' => $post, 'user' => $user]);
+    public function profile(Post $post,  User $user)
+    {
+        return view('profile')->with(['post' => $post,  'user' => $user]);
     }
     
     public function show(Post $post)
@@ -40,23 +39,4 @@ class PostController extends Controller
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
     }
-    
-    public function recuruitment(Post $post, User $user)
-    {
-        return view('recruitment')->with(['post' => $post, 'user' => $user]);
-    }
-
-    public function edit(Post $post)
-    {
-        return view('posts/edit')->with(['post' => $post]);
-    }
-    
-    public function update(PostRequest $request, Post $post)
-    {
-        $input_post = $request['post'];
-        $post->fill($input_post)->save();
-    
-        return redirect('/posts/' . $post->id);
-    }
-    
-    }
+}
