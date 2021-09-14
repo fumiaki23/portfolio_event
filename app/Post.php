@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public function getPaginateByLimit(int $limit_count = 5)
+    public function getPaginateByLimit(int $limit_count = 2)
     {
-        return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this->orderBy('date', 'ASC')->paginate($limit_count);
     }
     
     public function user()
