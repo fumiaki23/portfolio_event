@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
                 $table->integer('applicants');
                 $table->text('body');
                 $table->string('name');
-                $table->string('date');
+                $table->date('date');
                 $table->text('content');
                 $table->timestamps();
             });

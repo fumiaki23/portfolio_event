@@ -12,22 +12,10 @@
         <div class="col-8 offset-2 my-4 bg-white">
             <div class="container">
                 <h1><a href="/">Event</a></h1>
-                <p class="profile"><a href='/home' >ホームボタン</a></p>
-                <form method="post" action="URL" method="get">
-        	        <div>
-        		        <input type="search" name="s" placeholder="キーワードを入力">
-        	        </div>
-        	        <input type="submit" value="検索する" />
-                </form>
-            </div>
             <div class="container">
                 
                 @foreach ($posts as $post)
-                
-                <div class="border rounded my-2 bg-light">
-                    
-                        
-                    
+                <div class="border rounded my-2 bg-light ">
                     <div class="row">
                         <div class="col-3 offset-1 my-2">
                             <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
@@ -61,9 +49,7 @@
                                             var countdown = Math.ceil((point.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
                                             if (countdown >= 0) {
                                                 document.write(countdown);
-                                            } else {
-                                                document.write("ああああ");
-                                            }
+                                            } else if ()
                                         </script>
                                     </span>日。
                                 </div>                        

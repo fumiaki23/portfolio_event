@@ -20,7 +20,7 @@
                         <li>名前:{{ Auth::user()->name }}</li>
                         <li>メールアドレス:{{ Auth::user()->email }}</li>
                         <p class="create"><a href="posts/create">企画を投稿する</a></p>
-                        <p class="recuruitment"><a href="/recuruitment/">募集中のイベント</a></p>
+                        <p class="recuruitment"><a href="posts/recuruitment/">募集中のイベント</a></p>
                         <p class="history"><a href="">過去に募集したイベント</a></p>
                         <p class="history"><a href="">参加中のイベント</a></p>
                         <p class="history"><a href="">過去に参加したイベント</a></p>

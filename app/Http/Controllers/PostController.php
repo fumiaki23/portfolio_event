@@ -12,7 +12,12 @@ class PostController extends Controller
     public function index(Post $post)
     {
         $user = Auth::user();
-        return view('index', compact('user'))->with(['posts' => $post->getPaginateByLimit()]);
+        $today = date("Y-m-d");
+        //$today = strtotime($today);
+        $post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
+        //dd($today);
+        //$post = Post::where('date'<$today);
+        return view('index', compact('user'))->with(['posts' => $post]);
     }
     
     public function profile(Post $post,  User $user)
@@ -38,5 +43,13 @@ class PostController extends Controller
         $input['user_id'] = $user->id;
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
+    }
+    
+    public function recuruitment(Post $post, User $user) {
+        $user = Auth::user();
+        //$posts = $user->with('posts');
+        $posts = $user->posts();
+        $posts = $post->paginate(2);
+        return view('recuruitment')->with(['posts' => $posts]);
     }
 }

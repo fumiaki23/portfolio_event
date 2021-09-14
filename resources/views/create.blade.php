@@ -129,7 +129,7 @@
                 var mmd = maxi + "-" + mm + "-" + dd;
                 
                 document.getElementById("today").value = ymd;
-                document.getElementById("today").min = ymd;
+                //document.getElementById("today").min = ymd;
                 document.getElementById("today").max = mmd;
             }
         </script>
