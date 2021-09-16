@@ -41,22 +41,14 @@
                             <p class="body width-100">{{ $post->body }}</p>
                         </div>
                         <div class="col-11 offset-1">
-                                <div class="countDown">掲載終了まであと
-                                    <span class="countDownText font-weight-bold text-success" style="font-size: 24px;">
-                                        <script>
-                                            var now = new Date();
-                                            var point = new Date("{{ $post->date }}");
-                                            var countdown = Math.ceil((point.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-                                            if (countdown >= 0) {
-                                                document.write(countdown);
-                                            } else if ()
-                                        </script>
-                                    </span>日。
+                                <div class="countDown">
+                                    <p class="font-weight-bold text-danger" style="font-size: 24px;">掲載終了しました</p>
                                 </div>                        
                         </div>
                     </div>
                 </div>
                 @endforeach
+                <div class="text-right">[<a href="/home">戻る</a>]</div>
                 <div class="paginate">{{ $posts->links() }}</div>
             </div>
         </div>

@@ -11,13 +11,12 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
-        $user = Auth::user();
         $today = date("Y-m-d");
         //$today = strtotime($today);
         $post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
         //dd($today);
         //$post = Post::where('date'<$today);
-        return view('index', compact('user'))->with(['posts' => $post]);
+        return view('index')->with(['posts' => $post]);
     }
     
     public function profile(Post $post,  User $user)
@@ -45,11 +44,30 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
     }
     
-    public function recuruitment(Post $post, User $user) {
+    public function recuruit(Post $post, User $user)
+    {
         $user = Auth::user();
-        //$posts = $user->with('posts');
-        $posts = $user->posts();
-        $posts = $post->paginate(2);
-        return view('recuruitment')->with(['posts' => $posts]);
+        //$user = User::find($user->name);
+        $today = date("Y-m-d");
+        $post = Post::where('user_id', $user['id'])->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
+        //$post = $user->post();
+        $today = date("Y-m-d");
+        //$posts = $user->posts();
+        //dd($post);
+        return view('recuruit')->with(['posts' => $post]);
     }
+    
+    public function recuruited(Post $post, User $user)
+    {
+        $user = Auth::user();
+        //$user = User::find($user->name);
+        $today = date("Y-m-d");
+        $post = Post::where('user_id', $user['id'])->whereDate('date','<',$today)->orderBy('date', 'ASC')->paginate(2);
+        //$post = $user->post();
+        $today = date("Y-m-d");
+        //$posts = $user->posts();
+        //dd($post);
+        return view('recuruited')->with(['posts' => $post]);
+    }
+    
 }

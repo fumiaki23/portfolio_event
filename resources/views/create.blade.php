@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <textarea class="width-100" name="post[content]" placeholder="詳細ページに表示されます。" required></textarea>
+                            <textarea class="width-100 row-5" name="post[content]" placeholder="詳細ページに表示されます。" required></textarea>
                         </div>
                         <div class="text-right"><input type="submit" value="保存"/></div>
                     </form>
