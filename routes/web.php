@@ -14,7 +14,8 @@
 Route::get('/', 'PostController@index');
 Route::get('/profile/{post}/name', 'PostController@profile');
 Route::get('/posts/create', 'PostController@create');
-Route::get('/posts/recuruitment', 'PostController@recuruitment');
+Route::get('/posts/recuruit', 'PostController@recuruit');
+Route::get('/posts/recuruited', 'PostController@recuruited');
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('/posts', 'PostController@store');
 Route::get('/posts/{post}/edit', 'PostController@edit');
