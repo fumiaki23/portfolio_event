@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -24,9 +25,10 @@ class PostController extends Controller
         return view('profile')->with(['post' => $post,  'user' => $user]);
     }
     
-    public function show(Post $post)
+    public function show(Post $post, User $user)
     {
-        return view('show')->with(['post' => $post]);
+        $user = Auth::user();
+        return view('show')->with(['post' => $post, 'user' => $user]);
     }
     
     public function create()
@@ -35,7 +37,7 @@ class PostController extends Controller
         return view('create', compact('user'));
     }
     
-    public function store(Request $request, Post $post)
+    public function store(PostRequest $request, Post $post)
     {
         $user = Auth::user();
         $input = $request['post'];
@@ -51,7 +53,6 @@ class PostController extends Controller
         $today = date("Y-m-d");
         $post = Post::where('user_id', $user['id'])->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
         //$post = $user->post();
-        $today = date("Y-m-d");
         //$posts = $user->posts();
         //dd($post);
         return view('recuruit')->with(['posts' => $post]);
@@ -62,12 +63,57 @@ class PostController extends Controller
         $user = Auth::user();
         //$user = User::find($user->name);
         $today = date("Y-m-d");
-        $post = Post::where('user_id', $user['id'])->whereDate('date','<',$today)->orderBy('date', 'ASC')->paginate(2);
+        $post = Post::where('user_id', $user['id'])->whereDate('date','<',$today)->orderBy('date', 'DESC')->paginate(2);
         //$post = $user->post();
-        $today = date("Y-m-d");
         //$posts = $user->posts();
         //dd($post);
         return view('recuruited')->with(['posts' => $post]);
     }
+    
+    public function history(Post $post, User $user)
+    {
+        $user = Auth::user();
+        //$user = User::find($user->name);
+        $today = date("Y-m-d");
+        $post = Post::where('user_id', $user['id'])->orderBy('updated_at', 'DESC')->paginate(2);
+        //$post = $user->post();
+        //$posts = $user->posts();
+        //dd($post);
+        return view('history')->with(['posts' => $post]);
+    }
+    
+    public function edit($id)
+    {
+        $user = Auth::user();
+        $post = Post::where('id', $id)->where('user_id', $user['id'])->first();
+        return view('edit', compact('user'))->with(['post' => $post]);
+    }
+    
+    public function update(PostRequest $request, Post $post)
+    {
+        $input = $request['post'];
+        $post->fill($input)->save();
+        return redirect('/posts/history');
+    }
+    
+    // public function member(PostRequest $request, Post $post)
+    // {
+    //     $user = Auth::user();
+    //     $input = $request['post'];
+    //     $input['members'] = $user->name;
+    //     $post->fill($input)->save();
+    //     return redirect('/posts/' . $post->id);
+    // }
+    
+    // public function members(PostRequest $request, Post $post)
+    // {
+    //      if (is_array($request->skills)) {
+    //         $user = Auth::user();
+    //         $user->skills()->detach(); //ユーザの登録済みのメンバーを全て削除
+    //         $user->skills()->attach($request->skills); //改めて登録
+    //     }
+
+    //     return redirect('profile')->with('success', '新しいプロフィールを登録しました');
+    // }
     
 }

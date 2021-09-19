@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+        <script src="{{ asset('js/app.js') }}"></script>
         <title>Event</title>
     </head>
     <body class="bg-lightBlue">
@@ -16,14 +17,14 @@
                                 <div class="col-3 offset-1">
                                     <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
                                 </div>
-                                <div class="h2 col-7">
-                                    <textarea class="width-100" name="post[title]" placeholder="タイトル" required></textarea>
+                                <div class="col-7">
+                                    <textarea class="h2 width-100" name="post[title]" placeholder="タイトル" required>{{ old('post.title') }}</textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3 offset-1 font-weight-bold">
                                     <span>募集人数:</span>
-                                    <input type="number" name="post[applicants]" placeholder=0 min=1 max=100 required/>
+                                    <input type="number" name="post[applicants]" placeholder=0 min=1 max=100 value="{{ old('post.applicants') }}" required/>
                                 </div>
                                 <div class="col-7 font-weight-bold">
                                     <div class="name">
@@ -90,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10 offset-1">
-                                    <textarea class="width-100" name="post[body]" placeholder="一覧ページに表示されます。" required></textarea>
+                                    <textarea class="width-100" name="post[body]" placeholder="一覧ページに表示されます。" required>{{ old('post.body') }}</textarea>
                                 </div>
                                 <div class="col-6">
                                     <p class="deadline"></p>
@@ -98,14 +99,14 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <textarea class="width-100 row-5" name="post[content]" placeholder="詳細ページに表示されます。" required></textarea>
+                            <textarea class="width-100 row-5" name="post[content]" placeholder="詳細ページに表示されます。" required>{{ old('post.content') }}</textarea>
                         </div>
                         <div class="text-right"><input type="submit" value="保存"/></div>
                     </form>
                 <div class="text-right">[<a href="/home">戻る</a>]</div>
             </div>
         </div>
-        <script type="text/javascript">
+        <script>
             window.onload = function () {
                 var date = new Date()
                 var year = date.getFullYear()
@@ -129,9 +130,9 @@
                 var mmd = maxi + "-" + mm + "-" + dd;
                 
                 document.getElementById("today").value = ymd;
-                //document.getElementById("today").min = ymd;
+                document.getElementById("today").min = ymd;
                 document.getElementById("today").max = mmd;
             }
-        </script>
+        </script>    
     </body>
 </html>

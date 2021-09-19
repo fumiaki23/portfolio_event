@@ -25,7 +25,7 @@
                         <p class="history"><a href="">参加中のイベント</a></p>
                         <p class="history"><a href="">過去に参加したイベント</a></p>
                         <p class="history"><a href="">下書き</a></p>
-                        <p class="history"><a href="">編集・削除</a></p>
+                        <p class="history"><a href="/posts/history">編集・削除</a></p>
                         <p class="history"><a href="">個人情報設定</a></p>
                     </ul>
                 </div>
