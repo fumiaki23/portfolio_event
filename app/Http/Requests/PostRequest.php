@@ -11,7 +11,7 @@ class PostRequest extends FormRequest
         return [
             'post.title' => 'required|string|max:50',
             'post.body' => 'required|string|max:400',
-            'post.content' => 'required|string|max:2000',
+            'post.content' => 'required|string|max:2000'
         ];
     }
 }

@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\User;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function index(Post $post)
+    public function index(Post $post, User $user)
     {
         $today = date("Y-m-d");
         //$today = strtotime($today);
         $post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
         //dd($today);
         //$post = Post::where('date'<$today);
-        return view('index')->with(['posts' => $post]);
+        return view('index')->with(['posts' => $post, 'user' => $user]);
     }
     
     public function profile(Post $post,  User $user)
@@ -25,10 +26,11 @@ class PostController extends Controller
         return view('profile')->with(['post' => $post,  'user' => $user]);
     }
     
-    public function show(Post $post, User $user)
+    public function show(Post $post, User $user, Comment $comment)
     {
         $user = Auth::user();
-        return view('show')->with(['post' => $post, 'user' => $user]);
+        //dd($comment);
+        return view('show')->with(['post' => $post, 'user' => $user, 'comments' => $comment]);
     }
     
     public function create()
@@ -93,10 +95,24 @@ class PostController extends Controller
     {
         $input = $request['post'];
         $post->fill($input)->save();
-        return redirect('/posts/history');
+        return redirect('/posts/' . $post->id);
     }
     
-    // public function member(PostRequest $request, Post $post)
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/');
+    }
+    
+    public function Participation(Post $post, User $user)
+    {
+        $today = date("Y-m-d");
+        //$today = strtotime($today);
+        $post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
+        //dd($today);
+        //$post = Post::where('date'<$today);
+        return view('participation')->with(['posts' => $post, 'user' => $user]);
+    }  // public function member(PostRequest $request, Post $post)
     // {
     //     $user = Auth::user();
     //     $input = $request['post'];

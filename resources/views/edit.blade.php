@@ -93,17 +93,19 @@
                                 <div class="col-10 offset-1">
                                     <textarea class="width-100" name="post[body]" placeholder="一覧ページに表示されます。" required>{{ $post->body }}</textarea>
                                 </div>
-                                <div class="col-6">
-                                    <p class="deadline"></p>
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <textarea class="width-100 row-5" name="post[content]" placeholder="詳細ページに表示されます。" required>{{ $post->content }}</textarea>
                         </div>
-                        <div class="text-right"><input type="submit" value="update"/></div>
+                        <input class="offset-1 mb-1" type="submit" value="保存"/>
                     </form>
-                <div class="text-right">[<a href="/posts/history">戻る</a>]</div>
+                    <form class="offset-1 mb-1" action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input class="text-danger" type="submit" onclick="return deletePost()" value="削除" style="display:inline"/>
+                    </form>
+                <div class="text-right">[<a href="/posts/{{ $post->id }}">戻る</a>]</div>
             </div>
         </div>
         <script>
@@ -132,6 +134,15 @@
                 document.getElementById("today").value = ymd;
                 document.getElementById("today").min = ymd;
                 document.getElementById("today").max = mmd;
+            }
+            
+            function deletePost() {
+                'use strict'
+                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                    document.getElementById('form_{{ $post->id }}').submit();
+                } else {
+                    return false;
+                }
             }
         </script>
     </body>

@@ -9,6 +9,8 @@ $factory->define(Post::class, function (Faker $faker) {
     return [
         'title' => $faker->unique()->word,
         'place' => $faker->word,
+        'user_id' => user_id,
+        'date' => $faker->date,
         'applicants' => $faker->randomDigitNotNull,
         'body' => $faker->text,
         'name' =>$faker->userName,
