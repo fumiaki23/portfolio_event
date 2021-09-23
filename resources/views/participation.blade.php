@@ -23,6 +23,7 @@
             </div>
             <div class="container pb-2">
                 @foreach ($posts as $post)
+                @if($post->users()->where('user_id', Auth::id())->exists())
                 <div class="border rounded my-2 bg-light">
                     <div class="row">
                         <div class="col-3 offset-1 my-2">
@@ -37,7 +38,7 @@
                             <span>募集人数:</span><a href='/posts/{{ $post->id }}/applicants'>{{ $post->users()->count() }}/{{ $post->applicants }}</a>
                         </div>
                         <div class="col-6 font-weight-bold">
-                            <a class="name width-100" href='/profile/{{ $post->user_id }}/name'>{{ $post->name }}</a>
+                            <span class="font-weight-bold">投稿者:</span><a class="name width-100" href='/profile/{{ $post->user_id }}/name'>{{ $post->name }}</a>
                         </div>
                         <div class="col-10 offset-1">
                             <p class="date"><span class="font-weight-bold" style="width: 50%;">開催日時:</span>{{ $post->date }}</p>
@@ -83,8 +84,8 @@
                         @endauth
                     </div>
                 </div>
+                @endif
                 @endforeach
-                <a href='/posts/participation'>111</a>
             </div>
             <div class="paginate">{{ $posts->links() }}</div>
         </div>

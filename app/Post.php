@@ -16,6 +16,10 @@ class Post extends Model
         return $this->belongsTo('App\User');
     }
     
+    public function comments()
+    {
+        return $this->belongsToMany('App\Comment');
+    }
     
     public function users()
     {
