@@ -99,8 +99,8 @@
                     </div>
                 </div>
                 @foreach($comments as $comment)
-                @if($comment)
-                @endif
+                <p >{{ $comment->user->name }}</p>
+                <p>{{ $comment->text }}</p>
                 @endforeach
                 <form action="/posts/{{ $post->id }}/comment" method="POST">
                     @csrf

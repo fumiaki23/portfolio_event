@@ -29,8 +29,9 @@ class PostController extends Controller
     public function show(Post $post, User $user, Comment $comment)
     {
         $user = Auth::user();
+        $comments = $post->comments()->get();
         //dd($comment);
-        return view('show')->with(['post' => $post, 'user' => $user, 'comments' => $comment]);
+        return view('show')->with(['post' => $post, 'user' => $user, 'comments' => $comments]);
     }
     
     public function create()
