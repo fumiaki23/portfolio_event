@@ -11,9 +11,8 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(PostRequest $request, Post $post, Comment $comment)
+    public function store(Request $request, Post $post, Comment $comment)
     {
-        dd($request);
         $user = Auth::user();
         $input = $request['comment'];
         $input['user_id'] = $user->id;
