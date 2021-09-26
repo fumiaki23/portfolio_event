@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\User;
+use Storage;
 use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
@@ -15,10 +16,13 @@ class PostController extends Controller
     {
         $today = date("Y-m-d");
         //$today = strtotime($today);
-        $post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
+        //$post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
+        //掲載期限が近いものから順に表示
+        $post = $post->orderBy('updated_at', 'DESC')->paginate(2);
+        //更新順に並び替え
         //dd($today);
         //$post = Post::where('date'<$today);
-        return view('index')->with(['posts' => $post, 'user' => $user]);
+        return view('index')->with(['posts' => $post, 'user' => $user, 'today' => $today]);
     }
     
     public function profile(Post $post,  User $user)
@@ -42,9 +46,15 @@ class PostController extends Controller
     
     public function store(PostRequest $request, Post $post)
     {
+        $form = $request->all();
+        $image = $request->file('image');
+        $path = Storage::disk('s3')->putFile('/hoge', $image, 'public');
+        //$image_path = Storage::disk('s3')->url($image);
+        //dd($image_path);
         $user = Auth::user();
         $input = $request['post'];
         $input['user_id'] = $user->id;
+        $input['image'] = Storage::disk('s3')->url($path);
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
     }
