@@ -26,16 +26,19 @@
                             <p class="title mt-2 width-100" href='/posts/{{ $post->id }}'>{{ $post->title }}</p>
                         </div>
                         <div class="col-3 offset-1 font-weight-bold mb-3">
-                            <span>募集人数:</span><a href=''>?/{{ $post->applicants }}</a>
+                            <span>募集人数:</span><a href='/posts/{{ $post->id }}/applicants'>?/{{ $post->applicants }}</a>
                         </div>
                         <div class="col-6 font-weight-bold">
-                            <a href='/profile/{{ $post->id }}/name'>{{ $post->name }}</a>
+                            <a href='/profile/{{ $post->user_id }}/name'>{{ $post->name }}</a>
                         </div>
                         <div class="col-10 offset-1">
                             <p class="date"><span class="font-weight-bold">開催日時:</span>{{ $post->date }}</p>
                         </div>                        
-                        <div class="col-10 offset-1">
+                        <div class="col-3 offset-1">
                             <p class="place"><span class="font-weight-bold">開催地:</span>{{ $post->place }}</p>
+                        </div>
+                        <div class="col-7">
+                            <p class="address width-100">{{ $post->address }}</p>
                         </div>
                         <div class="col-10 offset-1">
                             <p class="body width-100">{{ $post->body }}</p>

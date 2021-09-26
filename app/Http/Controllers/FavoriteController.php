@@ -16,7 +16,7 @@ class FavoriteController extends Controller
      */
     public function applicants(Post $post)
     {
-        $datas = $post->users()->pluck('name');
+        $datas = $post->users()->get();
         return view('applicants')->with(['post' => $post]);
     }
 
