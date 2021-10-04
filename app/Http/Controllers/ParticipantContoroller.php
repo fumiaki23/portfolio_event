@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use Auth;
 
-class FavoriteController extends Controller
+class ParticipantContoroller extends Controller
 {
     
     /**

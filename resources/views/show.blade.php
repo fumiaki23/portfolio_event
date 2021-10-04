@@ -11,7 +11,7 @@
     </head>
     
     <body class="bg-lightBlue">
-        <div class="col-8 offset-2 my-4 pb-2 bg-white">
+        <div class="col-10 offset-1 my-4 pb-2 bg-white">
             <div class="container">
                 <h1><a href="/">Event</a></h1>
                 <p class="profile"><a href='/home' >ホームボタン</a></p>
@@ -19,14 +19,14 @@
             <div class="container">
                 <div class="border rounded my-2 bg-light">
                     <div class="row">
-                        <div class="col-3 offset-1 my-2">
-                            <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
+                        <div class="col-4 offset-1 my-2">
+                            <img class="img" src={{ $post->image }}>
                         </div>
-                        <div class="h2 col-7">
+                        <div class="h2 col-6">
                             <p class="title mt-2 width-100" href='/posts/{{ $post->id }}'>{{ $post->title }}</p>
                         </div>
-                        <div class="col-3 offset-1 font-weight-bold mb-3">
-                            <span>募集人数:</span><a href='/posts/{{ $post->id }}/applicants'>?/{{ $post->applicants }}</a>
+                        <div class="col-4 offset-1 font-weight-bold mb-3">
+                            <span>募集人数:</span><a href='/posts/{{ $post->id }}/applicants'>{{ $post->users()->count() }}/{{ $post->applicants }}</a>
                         </div>
                         <div class="col-6 font-weight-bold">
                             <a href='/profile/{{ $post->user_id }}/name'>{{ $post->name }}</a>
@@ -34,10 +34,10 @@
                         <div class="col-10 offset-1">
                             <p class="date"><span class="font-weight-bold">開催日時:</span>{{ $post->date }}</p>
                         </div>                        
-                        <div class="col-3 offset-1">
+                        <div class="col-2 offset-1">
                             <p class="place"><span class="font-weight-bold">開催地:</span>{{ $post->place }}</p>
                         </div>
-                        <div class="col-7">
+                        <div class="col-8">
                             <p class="address width-100">{{ $post->address }}</p>
                         </div>
                         <div class="col-10 offset-1">
@@ -64,32 +64,16 @@
                             @if( ( $post->user_id ) !== ( Auth::user()->id ) )
                                 @if($post->users()->where('user_id', Auth::id())->exists())
                                 <div class="col-2 offset-1">
-                                    <form action="{{ route('unfavorites', $post) }}" method="POST">
+                                    <form action="{{ route('nonparticipants', $post) }}" method="POST">
                                     @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
+                                        <input type="submit" value="&#xf004; 参加中 {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
                                     </form>
                                 </div>
                                 @else
                                 <div class="col-2 offset-1">
-                                    <form action="{{ route('favorites', $post) }}" method="POST">
+                                    <form action="{{ route('participants', $post) }}" method="POST">
                                     @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-muted my-2 border">
-                                    </form>
-                                </div>
-                                @endif
-                                
-                                @if($post->users()->where('user_id', Auth::id())->exists())
-                                <div class="col-2 offset-1">
-                                    <form action="{{ route('unfavorites', $post) }}" method="POST">
-                                    @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
-                                    </form>
-                                </div>
-                                @else
-                                <div class="col-2 offset-1">
-                                    <form action="{{ route('favorites', $post) }}" method="POST">
-                                    @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->user::select('user_id')->count() }}" class="fas btn text-muted my-2 border">
+                                        <input type="submit" value="&#xf004; 参加する {{ $post->users()->count() }}" class="fas btn text-muted my-2 border">
                                     </form>
                                 </div>
                                 @endif
@@ -102,16 +86,16 @@
                     </div>
                 </div>
                 @foreach($comments as $comment)
-                <p >{{ $comment->user->name }}</p>
+                <div><span>{{ $comment->id }}. </span><a href='/profile/{{ $comment->user->id }}/name'>{{ $comment->user->name }}</a></div>
                 <p>{{ $comment->text }}</p>
                 @endforeach
                 <form action="/posts/{{ $post->id }}/comment" method="POST">
                     @csrf
-                    <textarea class="form-control" rows="5" id="comment" name="comment[text]"></textarea>
+                    <input type="text" class="form-control"　 placeholder="コメント" name="comment[text]"></textarea>
                     <div class="text-right">
-                        <input type="submit" value="保存"/>
+                        <input type="submit" class="fas btn border text-success mt-1" value="コメントする"/>
                     </div>
-                </form>        
+                </form>
                 <div class="footer">
                     <div class="text-right">[<a href="/">戻る</a>]</div>
                 </div>

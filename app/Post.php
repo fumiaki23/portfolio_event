@@ -21,6 +21,14 @@ class Post extends Model
         return $this->hasMany('App\Comment');
     }
     
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
+    
+    public function isLikedBy($user): bool {
+        return Like::where('user_id', $user->id)->where('post_id', $this->id)->first() !==null;
+    }
     public function users()
     {
         return $this->belongsToMany('App\User')->withTimestamps();
@@ -30,10 +38,10 @@ class Post extends Model
     //     return $this->belongsToMany('App\User');
     // }
     
-    public function member()
-    {
-        return $this->belongsToMany('App\Member');
-    }
+    // public function member()
+    // {
+    //     return $this->belongsToMany('App\Member');
+    // }
     
     protected $fillable = [
         'user_id',

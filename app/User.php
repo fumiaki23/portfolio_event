@@ -10,12 +10,20 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    // ユーザーの投稿
     public function posts()
     {
         return $this->hasMany('App\Post');
     }
     
-    public function favorites()
+    // ユーザーがいいねしている投稿
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
+    
+    // ユーザーが参加している投稿
+    public function participants()
     {
         return $this->belongsToMany('App\Post')->withTimestamps();
     }

@@ -18,17 +18,20 @@ Route::get('/posts/recuruit', 'PostController@recuruit');
 Route::get('/posts/recuruited', 'PostController@recuruited');
 Route::get('/posts/history', 'PostController@history');
 Route::get('/posts/participation', 'PostController@participation');
-Route::post('/posts/{post}/favorites', 'FavoriteController@store')->name('favorites');
-Route::post('/posts/{post}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');
-Route::get('/posts/{post}/applicants', 'FavoriteController@applicants')->name('applicants');
+Route::post('/posts/{post}/participants', 'ParticipantContoroller@store')->name('participants');
+Route::post('/posts/{post}/nonparticipants', 'ParticipantContoroller@destroy')->name('nonparticipants');
+Route::get('/posts/{post}/applicants', 'ParticipantContoroller@applicants')->name('applicants');
 // Route::post('/posts/{post}/member', 'PostController@member');
 Route::get('/posts/{post}/edit', 'PostController@edit');
 Route::put('/posts/{post}', 'PostController@update');
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('/posts/{post}/comment', 'CommentController@store');
 Route::post('/posts', 'PostController@store');
-Auth::routes();
+Route::get('/', 'PostController@index')->name('posts.index');
+Route::post('/posts/{post}', 'LikeController@like')->name('posts.index');
 
 Route::delete('/posts/{post}', 'PostController@delete');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
