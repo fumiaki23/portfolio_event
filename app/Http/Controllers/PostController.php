@@ -17,14 +17,14 @@ class PostController extends Controller
     {
         $today = date("Y-m-d");
         //$today = strtotime($today);
-        //$post = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
+        $posts = $post->whereDate('date','>=',$today)->orderBy('date', 'ASC')->paginate(2);
         //掲載期限が近いものから順に表示
         //$post = $post->orderBy('updated_at', 'DESC')->paginate(2);
-        $userAuth = \Auth::user();
+        // $userAuth = \Auth::user();
 
-        $post->load('likes');
+        // $post->load('likes');
 
-        $defaultCount = count($post->likes);
+        // $defaultCount = count($post->likes);
 
         // $defaultLiked = $post->likes->where('user_id', $userAuth->id)->first();
         // if(count($defaultLiked) == 0) {
@@ -33,18 +33,18 @@ class PostController extends Controller
         //     $defaultLiked == true;
         // }        // ユーザの投稿の一覧を作成日時の降順で取得
         //withCount('テーブル名')とすることで、リレーションの数も取得できます。
-        $posts = Post::withCount('likes')->orderBy('id', 'desc')->paginate(10);
-        $like_model = new Like;
+        // $posts = Post::withCount('likes')->orderBy('id', 'desc')->paginate(10);
+        // $like_model = new Like;
 
         $param = [
-                'posts' => $posts,
-                'like_model' => $like_model,
+                // 'posts' => $posts,
+                // 'like_model' => $like_model,
                 'user' => $user,
                 'today' => $today,
-                'post' => $post,
-                'userAuth' => $userAuth,
+                'posts' => $posts,
+                // 'userAuth' => $userAuth,
                 // 'defaultLiked' => $defaultLiked,
-                'defaultCount' => $defaultCount
+                // 'defaultCount' => $defaultCount
             ];
 
         //更新順に並び替え

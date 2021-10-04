@@ -59,7 +59,6 @@
                         <like
                         :post-id="{{ json_encode($post->id) }}"
                         :user-id="{{ json_encode($user->id) }}"
-                        :default-Count="{{ json_encode($defaultCount) }}"
                         ></like>
                     </div>
                 </div>
