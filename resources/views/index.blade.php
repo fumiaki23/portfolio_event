@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Event</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
-        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    </head>
-    
+@extends('layouts.app')
+    @section('content')
     <body class="bg-lightBlue">
         <div class="col-10 offset-1 my-4 bg-white">
             <div class="container">
-                <h1>Event</h1>
-                <p class="profile"><a href='/home' >ホームボタン</a></p>
                 <form method="post" action="URL" method="get">
         	        <div>
         		        <input type="search" name="s" placeholder="キーワードを入力">
@@ -21,6 +10,8 @@
         	        <input type="submit" value="検索する" />
                 </form>
             </div>
+	        <a href="/home">home</a>
+	        
             <div class="container pb-2">
                 @foreach ($posts as $post)
                 <div class="border rounded my-2 bg-light">
@@ -42,8 +33,11 @@
                         <div class="col-10 offset-1">
                             <p class="date"><span class="font-weight-bold" style="width: 50%;">開催日時:</span>{{ $post->date }}</p>
                         </div>                        
-                        <div class="col-10 offset-1">
+                        <div class="col-3 offset-1">
                             <p class="place"><span class="font-weight-bold">開催地:</span>{{ $post->place }}</p>
+                        </div>
+                        <div class="col-7">
+                            <p class="address width-100">{{ $post->address }}</p>
                         </div>
                         <div class="col-10 offset-1">
                             <p class="body width-100">{{ $post->body }}</p>
@@ -62,25 +56,11 @@
                                 </span>日
                             </div>
                         </div>
-                        @auth
-                            @if( ( $post->user_id ) !== ( Auth::user()->id ) )
-                                @if($post->users()->where('user_id', Auth::id())->exists())
-                                <div class="col-4 text-right">
-                                    <form action="{{ route('unfavorites', $post) }}" method="POST">
-                                    @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
-                                    </form>
-                                </div>
-                                @else
-                                <div class="col-4 text-right">
-                                    <form action="{{ route('favorites', $post) }}" method="POST">
-                                    @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-muted my-2 border">
-                                    </form>
-                                </div>
-                                @endif
-                            @endif
-                        @endauth
+                        <like
+                        :post-id="{{ json_encode($post->id) }}"
+                        :user-id="{{ json_encode($user->id) }}"
+                        :default-Count="{{ json_encode($defaultCount) }}"
+                        ></like>
                     </div>
                 </div>
                 @endforeach
@@ -89,4 +69,4 @@
             <div class="paginate">{{ $posts->links() }}</div>
         </div>
     </body>
-</html>
+    @endsection
