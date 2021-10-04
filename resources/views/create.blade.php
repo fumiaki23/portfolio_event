@@ -7,35 +7,39 @@
         <title>Event</title>
     </head>
     <body class="bg-lightBlue">
-        <div class="col-8 offset-2 my-4 bg-light">
+        <div class="col-10 offset-1 my-4 bg-light">
             <div class="container">
                 <h1><a href="/">Event</a></h1>  
-                    <form action="/posts" method="POST">
+                    <form action="/posts" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="border rounded my-2">
                             <div class="row">
-                                <div class="col-3 offset-1">
-                                    <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
+                                <div class="col-4 offset-1">
+                                    <input type="file" name="image" onchange="previewImage(this)"; />
+                                    <p>
+                                        Preview:<br>
+                                        <img id="preview" width="200" height="200" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:200px;">
+                                    </p>
                                 </div>
-                                <div class="col-7">
+                                <div class="col-6">
                                     <textarea class="h2 width-100" name="post[title]" placeholder="タイトル" required>{{ old('post.title') }}</textarea>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3 offset-1 font-weight-bold">
+                                <div class="col-4 offset-1 font-weight-bold">
                                     <span>募集人数:</span>
                                     <input type="number" name="post[applicants]" placeholder=0 min=1 max=100 value="{{ old('post.applicants') }}" required/>
                                 </div>
-                                <div class="col-7 font-weight-bold">
+                                <div class="col-6 font-weight-bold">
                                     <div class="name">
                                         <input class="user-applicants width-100"type="text" name="post[name]" value="{{ $user->name }}" readonly />
                                     </div>
                                 </div>
-                                <div class="col-11 offset-1">
+                                <div class="col-10 offset-1 my-2">
                                     <span class="font-weight-bold">開催日時:</span>
                                     <input name="post[date]" type="date" id="today" style="width: 50%;">
                                 </div>                                
-                                <div class="col-11 offset-1 my-2">
+                                <div class="col-3 offset-1 mb-2">
                                     <div class="place">
                                         <span class="font-weight-bold">開催地:</span>
                                         <select name="post[place]" required>
@@ -90,16 +94,16 @@
                                         </select>                                    
                                     </div>
                                 </div>
+                                <div class="col-7 mb-2">
+                                    <input type="text" class="width-100" name="post[address]" placeholder="住所詳細" required>{{ old('post.address') }}</text>
+                                </div>                                
                                 <div class="col-10 offset-1">
                                     <textarea class="width-100" name="post[body]" placeholder="一覧ページに表示されます。" required>{{ old('post.body') }}</textarea>
                                 </div>
-                                <div class="col-6">
-                                    <p class="deadline"></p>
-                                </div>
+                                <div class="col-10 offset-1">
+                                    <textarea class="width-100 row-5" name="post[content]" placeholder="詳細ページに表示されます。" required>{{ old('post.content') }}</textarea>
+                                </div>    
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <textarea class="width-100 row-5" name="post[content]" placeholder="詳細ページに表示されます。" required>{{ old('post.content') }}</textarea>
                         </div>
                         <div class="text-right"><input type="submit" value="保存"/></div>
                     </form>
@@ -132,6 +136,15 @@
                 document.getElementById("today").value = ymd;
                 document.getElementById("today").min = ymd;
                 document.getElementById("today").max = mmd;
+            }
+            
+            function previewImage(obj)
+            {
+            	var fileReader = new FileReader();
+            	fileReader.onload = (function() {
+            		document.getElementById('preview').src = fileReader.result;
+            	});
+            	fileReader.readAsDataURL(obj.files[0]);
             }
         </script>    
     </body>
