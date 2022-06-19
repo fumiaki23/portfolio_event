@@ -3,16 +3,15 @@
     <body class="bg-lightBlue">
         <div class="col-10 offset-1 my-4 bg-white">
             <div class="container">
-                <form method="post" action="URL" method="get">
-        	        <div>
-        		        <input type="search" name="s" placeholder="キーワードを入力">
-        	        </div>
-        	        <input type="submit" value="検索する" />
-                </form>
+                <!--<form method="post" action="URL" method="get">-->
+        	       <!-- <div>-->
+        		      <!--  <input type="search" name="s" placeholder="キーワードを入力">-->
+        	       <!-- </div>-->
+        	       <!-- <input type="submit" value="検索する" />-->
+                <!--</form>-->
             </div>
-	        <a href="/home">home</a>
-	        
-            <div class="container pb-2">
+
+            <div class="container py-2">
                 @foreach ($posts as $post)
                 <div class="border rounded my-2 bg-light">
                     <div class="row">
@@ -25,7 +24,7 @@
                     </div>
                     <div class="row">
                         <div class="col-4 offset-1 font-weight-bold mb-3">
-                            <span>募集人数:</span><a href='/posts/{{ $post->id }}/applicants'>{{ $post->users()->count() }}/{{ $post->applicants }}</a>
+                            <span>参加人数:</span><a href='/posts/{{ $post->id }}/applicants'>{{ $post->users()->count() }}/{{ $post->applicants }}</a>
                         </div>
                         <div class="col-5 font-weight-bold">
                             <a class="name width-100" href='/profile/{{ $post->user_id }}/name'>{{ $post->name }}</a>
@@ -56,15 +55,25 @@
                                 </span>日
                             </div>
                         </div>
-                        <like
-                        :post-id="{{ json_encode($post->id) }}"
-                        :user-id="{{ json_encode($user->id) }}"
-                        :default-Count="{{ json_encode($defaultCount) }}"
-                        ></like>
+                        @auth
+                            @if( ( $post->user_id ) !== ( Auth::user()->id ) )
+                                @if($post->users()->where('user_id', Auth::id())->exists())
+                                <div class="col-2 offset-1">
+                                    <form action="{{ route('nonparticipants', $post) }}" method="POST">
+                                    @csrf
+                                        <input type="button" value="&#xf004; 参加中 {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
+                                    </form>
+                                </div>
+                                @endif
+                            @else
+                            <div class="col-6 offset-1">
+                                [<a class="title width-100" href='/posts/{{ $post->id }}/edit'>編集・削除</a>]
+                            </div>
+                            @endif
+                        @endauth
                     </div>
                 </div>
                 @endforeach
-                <a href='/posts/participation'>111</a>
             </div>
             <div class="paginate">{{ $posts->links() }}</div>
         </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
-        <script src="{{ asset('js/app.js') }}"></script>
+        <!--<script src="{{ asset('js/app.js') }}"></script>-->
         <title>Event</title>
     </head>
     <body class="bg-lightBlue">
@@ -109,7 +109,30 @@
                     </form>
                 <div class="text-right">[<a href="/home">戻る</a>]</div>
             </div>
+        </div>[
+            <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <!--ここからメニュー-->
+        <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="/home">profile</a>
+                </li>                
+                <li>
+                    <a href="/create">企画を投稿する</a>
+                </li>
+                <li>
+                    <a href="/recuruit">あなたの投稿</a>
+                </li>
+                <li>
+                    <a href="/participation">参加中のイベント</a>
+                </li>
+
+            </ul>
         </div>
+        <!--ここまでメニュー-->
+    </div>
         <script>
             window.onload = function () {
                 var date = new Date()

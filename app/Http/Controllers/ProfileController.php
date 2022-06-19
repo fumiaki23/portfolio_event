@@ -12,14 +12,13 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Post $post, Comment $comment)
+    public function store(Request $request, Post $post, Profile $profile)
     {
         $user = Auth::user();
-        $input = $request['comment'];
+        $input = $request['profile'];
         $input['user_id'] = $user->id;
         $input['post_id'] = $post->id;
-        $comment->fill($input)->save();
-        return redirect('/posts/' . $post->id);
-    }
-    
+        $profile->fill($input)->save();
+        return redirect;
+    }    
 }

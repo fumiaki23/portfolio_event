@@ -50204,5 +50204,28 @@ module.exports = __webpack_require__(/*! /home/ec2-user/environment/event/resour
 
 
 /***/ })
+const on = document.getElementById('on');
+const off = document.getElementById('off');
 
+off.addEventListener('click', function(){
+
+  if(off.classList.contains('is-shut')){
+    off.classList.remove('is-shut');
+    on.classList.add('is-shut');
+  }else{
+    on.classList.remove('is-shut');
+    off.classList.add('is-shut');
+  }
+})
+
+on.addEventListener('click', function(){
+
+  if(on.classList.contains('is-shut')){
+    on.classList.remove('is-shut');
+    off.classList.add('is-shut');
+  }else{
+    off.classList.remove('is-shut');
+    on.classList.add('is-shut');
+  }
+})
 /******/ });

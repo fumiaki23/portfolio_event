@@ -12,10 +12,11 @@
                     You are logged in!
                     <h3>Profile</h3>
                     <p class="name">{{ $user->name }}</p>
-                    <p class="recuruit"><a href="posts/recuruit">募集中のイベント</a></p>
-                    <p class="recuruited"><a href="posts/recuruited">過去に募集したイベント</a></p>
+
+                <p class="recuruit"><a href="">募集中のイベント</a></p>
+                    <!--<p class="recuruited"><a href="posts/recuruited">過去に募集したイベント</a></p>-->
                     <p class="history"><a href="">参加中のイベント</a></p>
-                    <p class="history"><a href="">過去に参加したイベント</a></p>
+                    <!--<p class="history"><a href="">過去に参加したイベント</a></p>-->
                 </div>
             </div>
         </div>

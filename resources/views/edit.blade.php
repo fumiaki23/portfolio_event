@@ -15,7 +15,7 @@
                         <div class="border rounded my-2">
                             <div class="row">
                                 <div class="col-3 offset-1">
-                                    <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
+                                <img class="img" src={{ $post->image }}>
                                 </div>
                                 <div class="h2 col-7">
                                     <textarea class="width-100" name="post[title]" placeholder="タイトル" required>{{ $post->title }}</textarea>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-11 offset-1">
                                     <span class="font-weight-bold">開催日時:</span>
-                                    <input name="post[date]" type="date" id="today" style="width: 50%;">
+                                    <input name="post[date]" type="date" id="today" value="{{ $post->date }}" style="width: 50%;">
                                 </div>                                
                                 <div class="col-11 offset-1 my-2">
                                     <div class="place">
@@ -108,6 +108,29 @@
                 <div class="text-right">[<a href="/posts/{{ $post->id }}">戻る</a>]</div>
             </div>
         </div>
+            <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <!--ここからメニュー-->
+        <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="/home">profile</a>
+                </li>                
+                <li>
+                    <a href="/create">企画を投稿する</a>
+                </li>
+                <li>
+                    <a href="/recuruit">あなたの投稿</a>
+                </li>
+                <li>
+                    <a href="/participation">参加中のイベント</a>
+                </li>
+
+            </ul>
+        </div>
+        <!--ここまでメニュー-->
+    </div>
         <script>
             window.onload = function () {
                 var date = new Date()
@@ -131,7 +154,6 @@
                 var ymd = yyyy + "-" + mm + "-" + dd;
                 var mmd = maxi + "-" + mm + "-" + dd;
                 
-                document.getElementById("today").value = ymd;
                 document.getElementById("today").min = ymd;
                 document.getElementById("today").max = mmd;
             }

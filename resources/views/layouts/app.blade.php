@@ -69,12 +69,65 @@
                         @endguest
                     </ul>
                 </div>
+  <!--<button id="off" class="off"><image width="20" height="20" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png"></button>-->
+  <!--<button id="on" class="on is-shut">SOLD</button>-->
+  
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <!--ここからメニュー-->
+        <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="/home">profile</a>
+                </li>                
+                <li>
+                    <a href="/create">企画を投稿する</a>
+                </li>
+                <li>
+                    <a href="/recuruit">あなたの投稿</a>
+                </li>
+                <li>
+                    <a href="/participation">参加中のイベント</a>
+                </li>
+
+            </ul>
+        </div>
+        <!--ここまでメニュー-->
+    </div>
+
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+//             <script>
+// const on = document.getElementById('on');
+// const off = document.getElementById('off');
+
+// off.addEventListener('click', function(){
+
+//   if(off.classList.contains('is-shut')){
+//     off.classList.remove('is-shut');
+//     on.classList.add('is-shut');
+//   }else{
+//     on.classList.remove('is-shut');
+//     off.classList.add('is-shut');
+//   }
+// })
+
+// on.addEventListener('click', function(){
+
+//   if(on.classList.contains('is-shut')){
+//     on.classList.remove('is-shut');
+//     off.classList.add('is-shut');
+//   }else{
+//     off.classList.remove('is-shut');
+//     on.classList.add('is-shut');
+//   }
+// })
+
+//         </script>
 </body>
 </html>

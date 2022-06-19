@@ -14,7 +14,6 @@
         <div class="col-10 offset-1 my-4 pb-2 bg-white">
             <div class="container">
                 <h1><a href="/">Event</a></h1>
-                <p class="profile"><a href='/home' >ホームボタン</a></p>
             </div>
             <div class="container">
                 <div class="border rounded my-2 bg-light">
@@ -86,12 +85,12 @@
                     </div>
                 </div>
                 @foreach($comments as $comment)
-                <div><span>{{ $comment->id }}. </span><a href='/profile/{{ $comment->user->id }}/name'>{{ $comment->user->name }}</a></div>
+                 <div><span>{{$i++}}. </span><a href='/profile/{{ $comment->user->id }}/name'>{{ $comment->user->name }}</a></div>
                 <p>{{ $comment->text }}</p>
                 @endforeach
                 <form action="/posts/{{ $post->id }}/comment" method="POST">
                     @csrf
-                    <input type="text" class="form-control"　 placeholder="コメント" name="comment[text]"></textarea>
+                    <input type="text" class="form-control"　 placeholder="コメント" name="comment[text]" required></textarea>
                     <div class="text-right">
                         <input type="submit" class="fas btn border text-success mt-1" value="コメントする"/>
                     </div>
@@ -101,5 +100,28 @@
                 </div>
             </div>
         </div>
+            <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <!--ここからメニュー-->
+        <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="/home">profile</a>
+                </li>                
+                <li>
+                    <a href="/create">企画を投稿する</a>
+                </li>
+                <li>
+                    <a href="/recuruit">あなたの投稿</a>
+                </li>
+                <li>
+                    <a href="/participation">参加中のイベント</a>
+                </li>
+
+            </ul>
+        </div>
+        <!--ここまでメニュー-->
+    </div>
     </body>
 </html>

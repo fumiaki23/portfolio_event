@@ -16,6 +16,17 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
     
+    //ユーザーのプロフィール文
+    // public function profiles()
+    // {
+    //     return $this->hasMany('App\Profile');
+    // }
+    
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+    
     // ユーザーがいいねしている投稿
     public function likes()
     {

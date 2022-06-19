@@ -12,14 +12,13 @@
     <body class="bg-lightBlue">
         <div class="col-8 offset-2 my-4 bg-white">
             <div class="container">
-                <h1>Event</h1>
-                <p class="profile"><a href='/home' >ホームボタン</a></p>
-                <form method="post" action="URL" method="get">
-        	        <div>
-        		        <input type="search" name="s" placeholder="キーワードを入力">
-        	        </div>
-        	        <input type="submit" value="検索する" />
-                </form>
+                <h1><a href='/'>Event</a></h1>
+                <!--<form method="post" action="URL" method="get">-->
+        	       <!-- <div>-->
+        		      <!--  <input type="search" name="s" placeholder="キーワードを入力">-->
+        	       <!-- </div>-->
+        	       <!-- <input type="submit" value="検索する" />-->
+                <!--</form>-->
             </div>
             <div class="container pb-2">
                 @foreach ($posts as $post)
@@ -27,7 +26,7 @@
                 <div class="border rounded my-2 bg-light">
                     <div class="row">
                         <div class="col-3 offset-1 my-2">
-                            <img class="img-fluid img-thumbnail" width="200" height="200" src="//2.bp.blogspot.com/-63vQtYUKJBY/UgSMCmG66LI/AAAAAAAAW6w/-VMth7DVjcY/s400/food_hamburger.png">
+                            <img class="img" src={{ $post->image }}>
                         </div>
                         <div class="h2 col-6 mt-2">
                             <a class="title width-100" href='/posts/{{ $post->id }}'>{{ $post->title }}</a>
@@ -66,20 +65,24 @@
                         @auth
                             @if( ( $post->user_id ) !== ( Auth::user()->id ) )
                                 @if($post->users()->where('user_id', Auth::id())->exists())
-                                <div class="col-4 text-right">
-                                    <form action="{{ route('unfavorites', $post) }}" method="POST">
+                                <div class="col-2 offset-1">
+                                    <form action="{{ route('nonparticipants', $post) }}" method="POST">
                                     @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
+                                        <input type="button" value="&#xf004; 参加中 {{ $post->users()->count() }}" class="fas btn text-danger mt-2 border mb-2">
                                     </form>
                                 </div>
                                 @else
-                                <div class="col-4 text-right">
-                                    <form action="{{ route('favorites', $post) }}" method="POST">
+                                <div class="col-2 offset-1">
+                                    <form action="{{ route('participants', $post) }}" method="POST">
                                     @csrf
-                                        <input type="submit" value="&#xf004; いいね! {{ $post->users()->count() }}" class="fas btn text-muted my-2 border">
+                                        <input type="button" value="&#xf004; 参加する {{ $post->users()->count() }}" class="fas btn text-muted my-2 border">
                                     </form>
                                 </div>
                                 @endif
+                            @else
+                            <div class="col-6 offset-1">
+                                [<a class="title width-100" href='/posts/{{ $post->id }}/edit'>編集・削除</a>]
+                            </div>
                             @endif
                         @endauth
                     </div>
@@ -87,7 +90,28 @@
                 @endif
                 @endforeach
             </div>
-            <div class="paginate">{{ $posts->links() }}</div>
+            <div class="paginateb">{{ $posts->links() }}</div>
+        </div>
+             <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <!--ここからメニュー-->
+        <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="/home">profile</a>
+                </li>                
+                <li>
+                    <a href="posts/create">企画を投稿する</a>
+                </li>
+                <li>
+                    <a href="/recuruit">あなたの投稿</a>
+                </li>
+                <li>
+                    <a href="/participation">参加中のイベント</a>
+                </li>
+
+            </ul>
         </div>
     </body>
 </html>
